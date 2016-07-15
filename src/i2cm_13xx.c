@@ -45,6 +45,27 @@
 /*****************************************************************************
  * Private functions
  ****************************************************************************/
+#define DEBUG_I2C
+#ifdef DEBUG_I2C
+typedef struct _i2cdebuginfo
+{
+uint8_t state;
+uint8_t dat;
+uint8_t conset;
+} i2cdebuginfo;
+i2cdebuginfo i2cdebugbuff[512];
+uint32_t i2cbuffidx = 0;
+void I2C_RECORD_STATE(void)
+{
+    i2cdebugbuff[i2cbuffidx].state = LPC_I2C->STAT;
+    i2cdebugbuff[i2cbuffidx].dat = LPC_I2C->DAT;
+    i2cdebugbuff[i2cbuffidx].conset = LPC_I2C->CONSET;
+    i2cbuffidx++;
+    i2cbuffidx &= 511;
+}
+#else
+#define I2C_RECORD_STATE()
+#endif
 
 /*****************************************************************************
  * Public functions
@@ -79,6 +100,7 @@ void Chip_I2CM_SetBusSpeed(LPC_I2C_T *pI2C, uint32_t busSpeed)
 uint32_t Chip_I2CM_XferHandler(LPC_I2C_T *pI2C, I2CM_XFER_T *xfer)
 {
 	uint32_t cclr = I2C_CON_FLAGS;
+    I2C_RECORD_STATE();
 
 	switch (Chip_I2CM_GetCurState(pI2C)) {
 	case 0x08:		/* Start condition on bus */
