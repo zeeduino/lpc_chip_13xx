@@ -32,6 +32,10 @@
 #ifndef __CMSIS_H_
 #define __CMSIS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "lpc_types.h"
 #include "sys_config.h"
 

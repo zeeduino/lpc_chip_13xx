@@ -57,6 +57,7 @@ typedef struct {					/*!< TIMERn Structure       */
 	__IO uint32_t EMR;				/*!< External Match Register. The EMR controls the external match pins MATn.0-3 (MAT0.0-3 and MAT1.0-3 respectively). */
 	__I  uint32_t RESERVED0[12];
 	__IO uint32_t CTCR;				/*!< Count Control Register. The CTCR selects between Timer and Counter mode, and in Counter mode selects the signal and edge(s) for counting. */
+	__IO uint32_t PWMC;				/*!< PWM Control Register. The PWMC configures match outputs as PWM outputs. Each match output can independently be PWM or can be controlled by EMR */
 } LPC_TIMER_T;
 
 /** Macro to clear interrupt pending */
@@ -121,6 +122,7 @@ STATIC INLINE bool Chip_TIMER_MatchPending(LPC_TIMER_T *pTMR, int8_t matchnum)
  * @note	Determine if the capture interrupt for the passed capture pin is
  * pending.
  */
+// TODO CRxINT bits have different positions for TIMER0 (4,6) and TIMER1 (4,5)
 STATIC INLINE bool Chip_TIMER_CapturePending(LPC_TIMER_T *pTMR, int8_t capnum)
 {
 	return (bool) ((pTMR->IR & TIMER_CAP_INT(capnum)) != 0);

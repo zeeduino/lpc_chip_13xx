@@ -32,6 +32,10 @@
 #ifndef __RING_BUFFER_H_
 #define __RING_BUFFER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "lpc_types.h"
 
 /** @defgroup Ring_Buffer CHIP: Simple ring buffer implementation
@@ -184,5 +188,8 @@ int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num);
 /**
  * @}
  */
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __RING_BUFFER_H_ */

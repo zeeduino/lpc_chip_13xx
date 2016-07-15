@@ -242,6 +242,7 @@ uint32_t Chip_UART_SetBaudFDR(LPC_USART_T *pUART, uint32_t baudrate)
      * Let's make it to be the ratio DivVal / MulVal
      */
 	dval = uClk % rate16;
+	mval = rate16;
 
    /* The PCLK / (16 * Baudrate) is fractional
     * => dval = pclk % rate16
