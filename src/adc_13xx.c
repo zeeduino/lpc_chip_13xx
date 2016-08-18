@@ -249,7 +249,14 @@ void Chip_ADC_SetResolution(LPC_ADC_T *pADC, ADC_CLOCK_SETUP_T *ADCSetup, ADC_RE
 void Chip_ADC_EnableChannel(LPC_ADC_T *pADC, ADC_CHANNEL_T channel, FunctionalState NewState)
 {
 	if (NewState == ENABLE) {
-		pADC->CR |= ADC_CR_CH_SEL(channel);
+		if(pADC->CR & ADC_CR_BURST) {
+			pADC->CR |= ADC_CR_CH_SEL(channel);
+		}
+		else {
+			pADC->CR &= ~ADC_CR_SEL_MASK;
+			pADC->CR |= ADC_CR_CH_SEL(channel);
+		}
+
 	}
 	else {
 		pADC->CR &= ~ADC_CR_START_MASK;

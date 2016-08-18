@@ -81,6 +81,7 @@ typedef struct {					/*!< ADCn Structure */
 
 #define ADC_DR_DONE(n)          (((n) >> 31))			/*!< Mask for reading the ADC done status */
 #define ADC_DR_OVERRUN(n)       ((((n) >> 30) & (1UL)))	/*!< Mask for reading the ADC overrun status */
+#define ADC_CR_SEL_MASK         (7UL)					/*!< ADC channel select mask bits */
 #define ADC_CR_CH_SEL(n)        ((1UL << (n)))			/*!< Selects which of the AD0.0:7 pins is (are) to be sampled and converted */
 #define ADC_CR_CLKDIV(n)        ((((n) & 0xFF) << 8))	/*!< The APB clock (PCLK) is divided by (this value plus one) to produce the clock for the A/D */
 #define ADC_CR_BURST            ((1UL << 16))			/*!< Repeated conversions A/D enable bit */
